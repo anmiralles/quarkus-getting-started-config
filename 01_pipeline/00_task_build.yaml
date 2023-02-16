@@ -8,7 +8,7 @@ spec:
   steps:
   - name: build-sources
     image: maven:3.8.3-openjdk-16
-    workingDir: /workspace/source/getting-started
+    workingDir: "$(workspaces.source.path)"
     command:
     - /usr/bin/mvn
     args:
