@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-java-app
+spec:
+  workspaces:
+  - name: source
+  steps:
+  - name: build-sources
+    image: maven:3.8.3-openjdk-16
+    workingDir: /workspace/source/getting-started
+    command:
+    - /usr/bin/mvn
+    args:
+    - clean
+    - package
+---
