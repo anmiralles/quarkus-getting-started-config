@@ -44,6 +44,15 @@ spec:
         workspace: shared-workspace
     runAfter:
       - fetch-repository
+  - name: sonar-scan
+    taskRef:
+      kind: Task
+      name: sonar-scan
+    workspaces:
+      - name: source
+        workspace: shared-workspace
+    runAfter:
+      - build-java-app
   - name: build-image
     taskRef:
       name: buildah
@@ -55,7 +64,7 @@ spec:
     - name: source
       workspace: shared-workspace
     runAfter:
-    - build-java-app
+    - sonar-scan
   - name: apply-manifests
     taskRef:
       name: apply-manifests
