@@ -1,0 +1,28 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: quarkus-getting-started
+spec:
+  serviceAccountName: pipeline
+  interceptors:
+    - ref:
+        name: "github"
+      params:
+        - name: "secretRef"
+          value:
+            secretName: github-secret
+            secretKey: secretToken
+        - name: "eventTypes"
+          value: ["push"]
+  bindings:
+    - ref: quarkus-getting-started
+  template:
+    ref: quarkus-getting-started
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-secret
+type: Opaque
+stringData:
+  secretToken: "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"
